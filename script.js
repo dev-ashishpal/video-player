@@ -204,44 +204,8 @@ selector.addEventListener('click', scrub);
 
 progressThumb.addEventListener('change', scrub);
 
-// progress.addEventListener('input', scrub);
+progressBar.addEventListener('mousemove', progressTimerHandler);
 
-progressBar.addEventListener('mousemove',progressTimerHandler);
-progress.addEventListener('mousemove',progressTimerHandler);
+progress.addEventListener('mousemove', progressTimerHandler);
 
-// progressBar.onmousemove = function(e) {
-//     console.log(e.offsetX);
-//     progressTime.style.left = `${e.offsetX}px`;
-//     const scrubTime = (e.offsetX / progress.offsetWidth) * video.duration;
-//
-//     let scrubMin = Math.floor(scrubTime / 60);
-//     let scrubSec = Math.floor(scrubTime - scrubMin * 60);
-//
-//     if (scrubSec < 10) {
-//         scrubSec = '0' + scrubSec;
-//     }
-//     if (scrubMin < 10) {
-//         scrubMin = "0" + scrubMin;
-//     }
-//     progressTime.innerHTML = `${scrubMin}:${scrubSec}`;
-// }
-//
-//
-//
-// progress.onmousemove = function(e) {
-//     console.log(e.offsetX);
-//     progressTime.style.left = `${e.offsetX}px`;
-//     const scrubTime = (e.offsetX / progress.offsetWidth) * video.duration;
-//
-//     let scrubMin = Math.floor(scrubTime / 60);
-//     let scrubSec = Math.floor(scrubTime - scrubMin * 60);
-//
-//     if (scrubSec < 10) {
-//         scrubSec = '0' + scrubSec;
-//     }
-//     if (scrubMin < 10) {
-//         scrubMin = "0" + scrubMin;
-//     }
-//     progressTime.innerHTML = `${scrubMin}:${scrubSec}`;
-// }
 
