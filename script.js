@@ -7,6 +7,7 @@ const progress = player.querySelector('.progress__bar');
 const playerControl = player.querySelector('.player--footer');
 const progressBar = player.querySelector('.progress__bar--filled');
 const progressThumb = player.querySelector('.progress__bar--thumb');
+const progressTime = player.querySelector('.progress__bar--timer');
 const selector = player.querySelector('.progress');
 const currTime = player.querySelector('.player--time span:first-of-type');
 const durTime = player.querySelector('.player--time span:last-of-type');
@@ -19,163 +20,160 @@ const fullscreenBtn = player.querySelector('.player--option__fullscreen');
 const playerHeading = player.querySelector('.player--heading');
 
 
+//////////////////// Storing CurrentTime to the local storage /////////////////////
+let videoTime = localStorage.getItem("videoTime");
+
+video.currentTime = videoTime;
 
 
 /////////////////// Calling Functions //////////////////
 function fullscreen() {
-  if( player.requestFullscreen) {
-    player.requestFullscreen();
-  }
-  if( document.exitFullscreen) {
-    document.exitFullscreen();
-  }
+    if (player.requestFullscreen) {
+        player.requestFullscreen();
+    }
+    if (document.exitFullscreen) {
+        document.exitFullscreen();
+    }
 }
 
 function playHandler() {
-  if(video.paused) {
-    video.play();
-  } else {
-    video.pause();
-  }
+    if (video.paused) {
+        video.play();
+    } else {
+        video.pause();
+    }
 }
 
 function toggleBtnHandler() {
-  if(video.paused) {
-    playBtn.innerHTML = `
+    if (video.paused) {
+        playBtn.innerHTML = `
     <use xlink:href="svg/sprite.svg#icon-play"></use>
     `;
-  } else {
-    playBtn.innerHTML = `
+    } else {
+        playBtn.innerHTML = `
     <use xlink:href="svg/sprite.svg#icon-pause"></use>
     `;
-  }
+    }
 }
 
 function volumeMuteHandler() {
-  video.muted = !video.muted;
+    video.muted = !video.muted;
 }
 
 function toggleMuteHandler() {
-  if(video.muted) {
-    volumeTab.innerHTML = `
+    if (video.muted) {
+        volumeTab.innerHTML = `
     <use xlink:href="svg/sprite.svg#icon-volume_off"></use>
     `;
-  } else {
-    volumeTab.innerHTML = `
+    } else {
+        volumeTab.innerHTML = `
     <use xlink:href="svg/sprite.svg#icon-volume_up"></use>
     `;
-  }
+    }
 }
 
 function progressHandler() {
-  const percent = (video.currentTime / video.duration) * 100;
-  progressBar.style.width = `${percent}%`;
-  progressThumb.style.left = `${percent}%`;
-  progressThumb.transform = `translateX(-${percent}%)`;
+    const percent = (video.currentTime / video.duration) * 100;
+    progressBar.style.width = `${percent}%`;
+    progressThumb.style.left = `${percent}%`;
+    progressThumb.transform = `translateX(-${percent}%)`;
 
-  let currMin = Math.floor(video.currentTime / 60);
-  let currSec = Math.floor(video.currentTime - currMin * 60);
-  let durMin = Math.floor(video.duration / 60);
-  let durSec = Math.floor(video.duration - durMin * 60);
+    let currMin = Math.floor(video.currentTime / 60);
+    let currSec = Math.floor(video.currentTime - currMin * 60);
+    let durMin = Math.floor(video.duration / 60);
+    let durSec = Math.floor(video.duration - durMin * 60);
 
-  if(currSec < 10) {
-    currSec = '0' + currSec;
-  }
-  if(currMin < 10) {
-    currMin = "0" + currMin;
-  }
-  if(durSec < 10) {
-    durSec = '0' + durSec;
-  }
+    if (currSec < 10) {
+        currSec = '0' + currSec;
+    }
+    if (currMin < 10) {
+        currMin = "0" + currMin;
+    }
+    if (durSec < 10) {
+        durSec = '0' + durSec;
+    }
 
-  currTime.innerHTML = `${currMin}:${currSec}`;
-  durTime.innerHTML = `${durMin}:${durSec}`;
+    currTime.innerHTML = `${currMin}:${currSec}`;
+    durTime.innerHTML = `${durMin}:${durSec}`;
+
+    localStorage.setItem("videoTime", video.currentTime);
 }
 
 function volumeSliderHandler() {
-  video[this.name] = this.value;
+    video[this.name] = this.value;
 }
 
 function skipFwdHandler() {
-  video.currentTime += parseFloat(fwdBtn.dataset.skip);
+    video.currentTime += parseFloat(fwdBtn.dataset.skip);
 }
 
 function skipBwdHandler() {
-  video.currentTime += parseFloat(bwdBtn.dataset.skip);
+    video.currentTime += parseFloat(bwdBtn.dataset.skip);
 }
 
 function scrub(e) {
-  const scrubTime = (e.offsetX / progress.offsetWidth) * video.duration;
-  video.currentTime = scrubTime;
-  console.log(scrubTime);
+    const scrubTime = (e.offsetX / progress.offsetWidth) * video.duration;
+    video.currentTime = scrubTime;
+    console.log(scrubTime);
 }
 
 const playerAddHeadingHandler = () => {
-  playerHeading.classList.add('active');
-  let timeout;
-  if(timeout) {
-    clearTimeout(timeout);
-  }
-  timeout = setTimeout(mouseStopHeader, 1000);
+    playerHeading.classList.add('active');
+    let timeout;
+    if (timeout) {
+        clearTimeout(timeout);
+    }
+    timeout = setTimeout(mouseStopHeader, 1000);
 }
 
 const mouseStopHeader = () => {
-  playerHeading.classList.remove('active');
-  console.log('heading-removed');
+    playerHeading.classList.remove('active');
+    console.log('heading-removed');
 }
 
-const fullscreenControlHandler = () => {
-  // if(window.innerHeight === screen.height) {
-    playerControl.classList.add('active');
+function progressTimerHandler(e) {
+    progressTime.style.left = `${e.offsetX}px`;
+    const scrubTime = (e.offsetX / progress.offsetWidth) * video.duration;
 
-    let timeout;
-    if(timeout) {
-      clearTimeout(timeout);
+    let scrubMin = Math.floor(scrubTime / 60);
+    let scrubSec = Math.floor(scrubTime - scrubMin * 60);
+
+    if (scrubSec < 10) {
+        scrubSec = '0' + scrubSec;
     }
-    timeout = setTimeout(mouseStopControl, 5000);
-  // }
-}
-
-const fullscreenControlHover = () => {
-  // if(window.innerHeight === screen.height) {
-    playerControl.style.transform = `translateY(0)`;
-  // }
-}
-
-const mouseStopControl = () => {
-  // if(window.innerHeight === screen.height) {
-    playerControl.classList.remove('active');
-  // }
-  console.log('control-removed');
+    if (scrubMin < 10) {
+        scrubMin = "0" + scrubMin;
+    }
+    progressTime.innerHTML = `${scrubMin}:${scrubSec}`;
 }
 
 ////////////////// Listening to the Events /////////////////
 fullscreenBtn.addEventListener('click', fullscreen);
 
 document.addEventListener('keyup', (e) => {
-  if(e.key === 'f' || e.key === 'F') {
-    fullscreen();
-  }
+    if (e.key === 'f' || e.key === 'F') {
+        fullscreen();
+    }
 });
 
 document.addEventListener('keydown', (e) => {
-  if(e.key === "ArrowRight") {
-    skipFwdHandler();
-  }
+    if (e.key === "ArrowRight") {
+        skipFwdHandler();
+    }
 });
 
 document.addEventListener('keydown', (e) => {
-  if(e.key === "ArrowLeft") {
-    skipBwdHandler();
-  }
+    if (e.key === "ArrowLeft") {
+        skipBwdHandler();
+    }
 });
 
 document.addEventListener('keyup', (e) => {
-  if(e.key === " ") {
-    e.preventDefault();
-    e.stopPropagation();
-    playHandler();
-  }
+    if (e.key === " ") {
+        e.preventDefault();
+        e.stopPropagation();
+        playHandler();
+    }
 });
 
 video.addEventListener('dblclick', fullscreen);
@@ -189,12 +187,6 @@ video.addEventListener('pause', toggleBtnHandler);
 video.addEventListener('timeupdate', progressHandler);
 
 video.addEventListener('mousemove', playerAddHeadingHandler);
-
-// video.addEventListener('mousemove', fullscreenControlHandler);
-
-// playerControl.addEventListener('mousemove', fullscreenControlHover);
-
-// video.addEventListener('mouseover', playerRemoveHeadingHandler);
 
 playBtn.addEventListener('click', playHandler);
 
@@ -211,3 +203,45 @@ bwdBtn.addEventListener('click', skipBwdHandler);
 selector.addEventListener('click', scrub);
 
 progressThumb.addEventListener('change', scrub);
+
+// progress.addEventListener('input', scrub);
+
+progressBar.addEventListener('mousemove',progressTimerHandler);
+progress.addEventListener('mousemove',progressTimerHandler);
+
+// progressBar.onmousemove = function(e) {
+//     console.log(e.offsetX);
+//     progressTime.style.left = `${e.offsetX}px`;
+//     const scrubTime = (e.offsetX / progress.offsetWidth) * video.duration;
+//
+//     let scrubMin = Math.floor(scrubTime / 60);
+//     let scrubSec = Math.floor(scrubTime - scrubMin * 60);
+//
+//     if (scrubSec < 10) {
+//         scrubSec = '0' + scrubSec;
+//     }
+//     if (scrubMin < 10) {
+//         scrubMin = "0" + scrubMin;
+//     }
+//     progressTime.innerHTML = `${scrubMin}:${scrubSec}`;
+// }
+//
+//
+//
+// progress.onmousemove = function(e) {
+//     console.log(e.offsetX);
+//     progressTime.style.left = `${e.offsetX}px`;
+//     const scrubTime = (e.offsetX / progress.offsetWidth) * video.duration;
+//
+//     let scrubMin = Math.floor(scrubTime / 60);
+//     let scrubSec = Math.floor(scrubTime - scrubMin * 60);
+//
+//     if (scrubSec < 10) {
+//         scrubSec = '0' + scrubSec;
+//     }
+//     if (scrubMin < 10) {
+//         scrubMin = "0" + scrubMin;
+//     }
+//     progressTime.innerHTML = `${scrubMin}:${scrubSec}`;
+// }
+
