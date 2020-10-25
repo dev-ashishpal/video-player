@@ -1,4 +1,9 @@
-
+/*
+* Prefixed by https://autoprefixer.github.io
+* PostCSS: v7.0.29,
+* Autoprefixer: v9.7.6
+* Browsers: last 4 version
+*/
 
 * {
     padding: 0;
@@ -40,12 +45,6 @@ body {
     outline-offset: 8px;
 }
 
-.player:hover .player--footer {
-    -webkit-transform: translateY(0);
-    -ms-transform: translateY(0);
-    transform: translateY(0);
-}
-
 .player:-webkit-full-screen {
     max-width: none;
     width: 100%;
@@ -59,22 +58,6 @@ body {
 .player:fullscreen {
     max-width: none;
     width: 100%;
-}
-
-.player:-webkit-full-screen:hover .player--footer {
-    -webkit-transform: translateY(100%) translateY(-6px);
-    transform: translateY(100%) translateY(-6px);
-}
-
-.player:-ms-fullscreen:hover .player--footer {
-    -ms-transform: translateY(100%) translateY(-6px);
-    transform: translateY(100%) translateY(-6px);
-}
-
-.player:fullscreen:hover .player--footer {
-    -webkit-transform: translateY(100%) translateY(-6px);
-    -ms-transform: translateY(100%) translateY(-6px);
-    transform: translateY(100%) translateY(-6px);
 }
 
 .player:-webkit-full-screen {
@@ -118,17 +101,29 @@ body {
     color: #fff;
 }
 
-.player--footer {
+.player--footer__top {
     position: absolute;
     bottom: 0;
     width: 100%;
+    -webkit-transition: all 0.4s;
+    -o-transition: all 0.4s;
+    transition: all 0.4s;
+    background-color: transparent;
+}
+
+.player--footer__top:hover .player--footer {
+    -webkit-transform: translateY(0);
+    -ms-transform: translateY(0);
+    transform: translateY(0);
+}
+
+.player--footer {
     -webkit-transform: translateY(100%) translateY(-5px);
     -ms-transform: translateY(100%) translateY(-5px);
     transform: translateY(100%) translateY(-5px);
     -webkit-transition: all 0.4s;
     -o-transition: all 0.4s;
     transition: all 0.4s;
-    background-color: rgba(0, 0, 0, 0.3);
 }
 
 .player--time {
@@ -287,3 +282,4 @@ body {
     background-color: #ffd500;
     cursor: pointer;
 }
+ 

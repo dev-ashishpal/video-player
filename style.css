@@ -26,17 +26,9 @@ body {
     outline-offset: 8px;
 }
 
-.player:hover .player--footer {
-    transform: translateY(0);
-}
-
 .player:fullscreen {
     max-width: none;
     width: 100%;
-}
-
-.player:fullscreen:hover .player--footer {
-    transform: translateY(100%) translateY(-6px);
 }
 
 .player:-webkit-full-screen {
@@ -71,13 +63,21 @@ body {
     color: #fff;
 }
 
-.player--footer {
+.player--footer__top {
     position: absolute;
     bottom: 0;
     width: 100%;
+    transition: all 0.4s;
+    background-color: transparent;
+}
+
+.player--footer__top:hover .player--footer {
+    transform: translateY(0);
+}
+
+.player--footer {
     transform: translateY(100%) translateY(-5px);
     transition: all 0.4s;
-    background-color: rgba(0, 0, 0, 0.3);
 }
 
 .player--time {
