@@ -5,7 +5,8 @@ const player = document.querySelector('.player');
 const video = player.querySelector('.player--video');
 const progress = player.querySelector('.progress__bar');
 const playerControl = player.querySelector('.player--footer');
-const progressBar = player.querySelector('.progress__bar--filled');
+const progressBarCurrent = player.querySelector('.progress__bar--filled-current');
+const progressBarLoaded = player.querySelector('.progress__bar--filled-loaded');
 const progressThumb = player.querySelector('.progress__bar--thumb');
 const progressTime = player.querySelector('.progress__bar--timer');
 const selector = player.querySelector('.progress');
@@ -74,7 +75,8 @@ function toggleMuteHandler() {
 
 function progressHandler() {
     const percent = (video.currentTime / video.duration) * 100;
-    progressBar.style.width = `${percent}%`;
+   // console.log('current percent => ' +percent);
+    progressBarCurrent.style.width = `${percent}%`;
     progressThumb.style.left = `${percent}%`;
     progressThumb.transform = `translateX(-${percent}%)`;
 
@@ -99,7 +101,7 @@ function progressHandler() {
     localStorage.setItem("videoTime", video.currentTime);
 }
 
-function volumeSliderHandler() {
+function volumeSliderHandler() { 
     video[this.name] = this.value;
 }
 
@@ -114,7 +116,7 @@ function skipBwdHandler() {
 function scrub(e) {
     const scrubTime = (e.offsetX / progress.offsetWidth) * video.duration;
     video.currentTime = scrubTime;
-    console.log(scrubTime);
+    // console.log(scrubTime, e.offsetX);
 }
 
 const playerAddHeadingHandler = () => {
@@ -123,16 +125,21 @@ const playerAddHeadingHandler = () => {
     if (timeout) {
         clearTimeout(timeout);
     }
-    timeout = setTimeout(mouseStopHeader, 1000);
+    timeout = setTimeout(mouseStopHeader, 8000);
 }
 
 const mouseStopHeader = () => {
     playerHeading.classList.remove('active');
-    console.log('heading-removed');
+    // console.log('heading-removed');
 }
 
 function progressTimerHandler(e) {
     progressTime.style.left = `${e.offsetX}px`;
+    // console.log(progressTime.style.left);
+    if( progressTime.getBoundingClientRect().x + progressTime.getBoundingClientRect().width >= video.getBoundingClientRect().x + video.getBoundingClientRect().width ) {
+        progressTime.style.left = `${ video.offsetWidth - (progressTime.offsetWidth / 2)}px`;
+        console.log(progress.offsetWidth);
+    }
     const scrubTime = (e.offsetX / progress.offsetWidth) * video.duration;
 
     let scrubMin = Math.floor(scrubTime / 60);
@@ -144,7 +151,23 @@ function progressTimerHandler(e) {
     if (scrubMin < 10) {
         scrubMin = "0" + scrubMin;
     }
-    progressTime.innerHTML = `${scrubMin}:${scrubSec}`;
+    progressTime.querySelector('span').innerHTML = `${scrubMin}:${scrubSec}`;
+    progressTime.querySelector('video').currentTime = scrubTime;
+}
+
+function buffered() {
+    let range = 0;
+    let bf = this.buffered;
+    let time = this.currentTime;
+	if(this.readyState === 4) {
+    while(!(bf.start(range) <= time && time<= bf.end(range))) {
+        range += 1;
+    }
+    let loadStartPercentage = bf.start(range) / this.duration;
+    let loadEndPercentage = bf.end(range) / this.duration;
+    let loadPercentage = (loadEndPercentage - loadStartPercentage) *100;
+    progressBarLoaded.style.width = `${loadEndPercentage *100}%`;
+	}
 }
 
 ////////////////// Listening to the Events /////////////////
@@ -152,6 +175,7 @@ fullscreenBtn.addEventListener('click', fullscreen);
 
 document.addEventListener('keyup', (e) => {
     if (e.key === 'f' || e.key === 'F') {
+		console.log('F is fired!');
         fullscreen();
     }
 });
@@ -204,8 +228,8 @@ selector.addEventListener('click', scrub);
 
 progressThumb.addEventListener('change', scrub);
 
-progressBar.addEventListener('mousemove', progressTimerHandler);
+progressBarCurrent.addEventListener('mousemove', progressTimerHandler);
 
 progress.addEventListener('mousemove', progressTimerHandler);
 
-
+video.addEventListener('progress', buffered)

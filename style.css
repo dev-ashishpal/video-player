@@ -19,8 +19,10 @@ body {
     display: grid;
     justify-content: center;
     align-items: center;
-    width: 854px;
-    height: 420px;
+    /*width: 100%;*/
+    width: 1024px;
+    height: 576px;
+    /*height: 100%;*/
     overflow: hidden;
     outline: 4px solid rgba(0, 0, 0, 0.2);
     outline-offset: 8px;
@@ -29,11 +31,13 @@ body {
 .player:fullscreen {
     max-width: none;
     width: 100%;
+    transform: rotate(90deg) !important;
 }
 
 .player:-webkit-full-screen {
     max-width: none;
     width: 100%;
+    transform: rotate(90deg) !important;
 }
 
 .player:fullscreen .player--heading.active {
@@ -57,10 +61,18 @@ body {
     position: absolute;
     top: 0;
     left: 0;
-    height: 100%;
     width: 100%;
-    object-fit: cover;
+    height: 100%;
+    object-fit: contain;
     color: #fff;
+}
+
+.player--video:fullscreen {
+    transform: rotate(90deg) !important;
+}
+
+.player--video:-webkit-full-screen {
+    transform: rotate(90deg) !important;
 }
 
 .player--footer__top {
@@ -69,6 +81,9 @@ body {
     width: 100%;
     transition: all 0.4s;
     background-color: transparent;
+    /*background-color: orangered;*/
+    padding-top: 20px;
+    /*transform: translateY(-20px);*/
 }
 
 .player--footer__top:hover .player--footer {
@@ -103,7 +118,7 @@ body {
 
 .progress__bar {
     -webkit-appearance: none;
-    background-color: rgba(255, 255, 255, 0.3);
+    background-color: rgba(0, 0, 0, 0.2);
     width: 100%;
     height: 5px;
     border-radius: 4px;
@@ -136,14 +151,6 @@ body {
     z-index: 2;
 }
 
-.progress__bar--timer {
-    position: absolute;
-    top: -35px;
-    left: 0;
-    height: 30px;
-    width: 30px;
-    display: none;
-}
 
 .progress__bar--thumb-btn {
     height: 15px;
@@ -153,10 +160,20 @@ body {
     cursor: pointer;
 }
 
-.progress__bar--filled {
+.progress__bar--filled-current {
     width: 0;
     height: 5px;
     background-color: #ffd500;
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 10;
+}
+
+.progress__bar--filled-loaded {
+    width: 0;
+    height: 5px;
+    background-color: rgba(255, 255, 255, 0.5);
     position: absolute;
     top: 0;
     left: 0;
@@ -222,4 +239,28 @@ body {
     background-color: #ffd500;
     cursor: pointer;
 }
- 
+
+.progress__bar--timer {
+    position: absolute;
+    top: -150px;
+    left: 0;
+    height: 118px;
+    transform: translateX(-50%);
+    width: 180px;
+    /*background-color: orangered;*/
+    display: none;
+}
+
+.progress__bar--timer span {
+    /*height: 30px;*/
+    display: block;
+    text-align: center;
+    /*width: 50px;*/
+}
+
+.mini_video {
+    height: 108px;
+    width: 180px;
+    border-radius: 2px;
+    border: 3px solid white;
+}
