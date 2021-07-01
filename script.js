@@ -101,7 +101,7 @@ function progressHandler() {
     localStorage.setItem("videoTime", video.currentTime);
 }
 
-function volumeSliderHandler() { 
+function volumeSliderHandler() {
     video[this.name] = this.value;
 }
 
@@ -233,3 +233,8 @@ progressBarCurrent.addEventListener('mousemove', progressTimerHandler);
 progress.addEventListener('mousemove', progressTimerHandler);
 
 video.addEventListener('progress', buffered)
+
+
+volumeBar.addEventListener('drag', (e) => {
+    console.log(e)
+})

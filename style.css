@@ -262,5 +262,6 @@ body {
     height: 108px;
     width: 180px;
     border-radius: 2px;
-    border: 3px solid white;
+    border: 2px solid white;
+    background-color: black;
 }
