@@ -15,9 +15,9 @@ This Video Player can be easily customized and used in any website.
 1. Include CSS and JavaScript CDN into your index.html file.
 ```
 <!-- CSS CDN -->
-	<link rel="stylesheet" href="https://unpkg.com/custom-html-player@1.0.1/assets/styles/style.css">
+	<link rel="stylesheet" href="https://unpkg.com/custom-html-player@1.0.2/assets/styles/style.css">
 <!-- JS CDN -->
-	<script defer src="https://unpkg.com/custom-html-player@1.0.1/assets/script/index.js"></script>
+	<script defer src="https://unpkg.com/custom-html-player@1.0.2/assets/script/index.js"></script>
 ```
 2. Inside your HTML file write the code given below.
 ```
