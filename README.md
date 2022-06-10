@@ -3,7 +3,7 @@ This is a customizable Video Player with Pure JavaScript.
 This Video Player can be easily customized and used in any website.
 
 You can preview the Demo here:
-[https://unpkg.com/custom-html-player@1.0.3/index.html+](https://unpkg.com/custom-html-player@1.0.2/index.html)
+[https://unpkg.com/custom-html-player@1.0.3/index.html](https://unpkg.com/custom-html-player@1.0.2/index.html)
 
 ### Features of Player
 1. Play/Pause
