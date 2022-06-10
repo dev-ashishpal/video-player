@@ -18,9 +18,9 @@ You can preview the Demo here:
 1. Include CSS and JavaScript CDN into your index.html file.
 ```
 <!-- CSS CDN -->
-	<link rel="stylesheet" href="https://unpkg.com/custom-html-player@1.0.3/assets/styles/style.css">
+	<link rel="stylesheet" href="https://unpkg.com/custom-html-player@1.0.3/assets/styles/style.min.css">
 <!-- JS CDN -->
-	<script defer src="https://unpkg.com/custom-html-player@1.0.3/assets/script/index.js"></script>
+	<script defer src="https://unpkg.com/custom-html-player@1.0.3/assets/script/index.min.js"></script>
 ```
 2. Inside your HTML file write the code given below.
 ```
