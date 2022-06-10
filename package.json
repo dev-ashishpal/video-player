@@ -1,8 +1,9 @@
 {
   "name": "custom-html-player",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "HTML Customized Video Player",
   "main": "index.html",
+  "type": "module",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },

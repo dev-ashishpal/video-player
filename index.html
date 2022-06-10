@@ -7,15 +7,14 @@
       content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0"
     />
     <meta http-equiv="X-UA-Compatible" content="ie=edge" />
-    <link rel="stylesheet" href="assets/styles/style.min.css" />
+    <link rel="stylesheet" href="assets/styles/style.css" />
     <!--  <link rel="stylesheet" href="style.css">-->
-    <script src="assets/script/dom.js" defer></script>
-    <script src="assets/script/script.js" defer></script>
+    <!-- <script src="assets/script/dom.js" defer></script> -->
     <!-- <script src="script.js" defer></script> -->
     <title>Video Player</title>
   </head>
   <body>
-    <div class="player" id="player">
+    <div class="player" id="player" style="width: 1024px; height: 576px">
       <video
         src="public/video3.mp4"
         class="player--video"
@@ -25,7 +24,9 @@
         Your browser doesn't support Video File.
       </video>
       <h2 class="player--heading">Video Title Here.</h2>
-      <div class="player--footer__top" id="player--footer__top"></div>
+      <div class="options" id="options"></div>
     </div>
+    <!--  -->
+    <script src="assets/script/index.js"></script>
   </body>
 </html>
