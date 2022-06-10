@@ -1,5 +1,5 @@
 /////////////////////////////  VIDEO PLAYER /////////////////////////////
-// const player = document.getElementById("player");
+const source = document.querySelector("video").getAttribute("src");
 
 const playerFooterTop = document.getElementById("options");
 playerFooterTop.innerHTML = `
@@ -19,7 +19,7 @@ playerFooterTop.innerHTML = `
               <div class="progress__bar--thumb-btn"></div>
             </div>
             <div class="progress__bar--timer">
-              <video class="mini_video" src="/public/video3.mp4"></video>
+              <video class="mini_video" src="${source}"></video>
               <span></span>
             </div>
             <div class="progress__bar--filled-current"></div>

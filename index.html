@@ -7,16 +7,28 @@
       content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0"
     />
     <meta http-equiv="X-UA-Compatible" content="ie=edge" />
-    <link rel="stylesheet" href="assets/styles/style.css" />
+    <link rel="stylesheet" href="assets/styles/style.min.css" />
     <!--  <link rel="stylesheet" href="style.css">-->
     <!-- <script src="assets/script/dom.js" defer></script> -->
     <!-- <script src="script.js" defer></script> -->
     <title>Video Player</title>
   </head>
+  <style>
+    body {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+    }
+    .player {
+      outline: 4px solid rgba(0, 0, 0, 0.2);
+      outline-offset: 8px;
+    }
+  </style>
   <body>
     <div class="player" id="player" style="width: 1024px; height: 576px">
       <video
-        src="public/video3.mp4"
+        src="https://drive.google.com/uc?export=download&id=1VsmWy8w9A9UYWoT8_fyMcydUh9rbDKYH"
         class="player--video"
         poster="public/thumbnail.png"
         preload="metadata"
@@ -27,6 +39,6 @@
       <div class="options" id="options"></div>
     </div>
     <!--  -->
-    <script src="assets/script/index.js"></script>
+    <script src="assets/script/index.min.js"></script>
   </body>
 </html>
